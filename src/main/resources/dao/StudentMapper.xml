@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ccqstark.stugrademanage.mapper.StudentMapper">
+    <!--namespace对应mapper接口-->
+
+    <!-- id对应的就是接口定义的函数名 -->
+    <select id="queryStudentList" resultType="Student">
+        SELECT * FROM student
+    </select>
+
+<!--    &lt;!&ndash; #{id}就是模板待填空位&ndash;&gt;-->
+<!--    <select id="queryByUserId" resultType="User">-->
+<!--        SELECT * FROM user WHERE id = #{id}-->
+<!--    </select>-->
+
+    <insert id="addStudent" parameterType="Student">
+        INSERT into student (`number`,`name`) values (#{number},#{name})
+    </insert>
+
+<!--    <update id="updateUser" parameterType="User">-->
+<!--        UPDATE user SET name=#{name},pwd=#{pwd} where id = #{id}-->
+<!--    </update>-->
+
+<!--    <delete id="deleteUser" parameterType="int">-->
+<!--        DELETE FROM user WHERE id = #{id}-->
+<!--    </delete>-->
+
+</mapper>
