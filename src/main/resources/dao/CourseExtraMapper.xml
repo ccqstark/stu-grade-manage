@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ccqstark.stugrademanage.mapper.CourseExtraMapper">
+
+    <!--将所有信息插入PP表里面，传入参数为list,通过<foreach>来遍历list-->
+    <insert id="BatchInsertCourseExtra" parameterType="java.util.List">
+        insert into grade_extra (student_name,course_name,score) VALUES
+        <foreach collection="list" item="one_courseExtra" index="index" separator=",">
+            (#{one_courseExtra.studentName},#{one_courseExtra.courseName},#{one_courseExtra.score})
+        </foreach>
+    </insert>
+
+
+</mapper>

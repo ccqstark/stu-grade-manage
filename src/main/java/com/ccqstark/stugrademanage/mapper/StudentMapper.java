@@ -3,6 +3,8 @@ package com.ccqstark.stugrademanage.mapper;
 import com.ccqstark.stugrademanage.pojo.Student;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @Author ccqstark
  * @Description 学生mapper
@@ -11,7 +13,12 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface StudentMapper {
 
-//    List<Student> queryStudentList();
+    List<Student> queryStudentList();
 
     int addStudent(Student student);
+
+    int updateGrade(Student student);
+
+    int deleteStudent(int studentID);
+
 }

@@ -6,16 +6,15 @@ import lombok.NoArgsConstructor;
 
 /**
  * @Author ccqstark
- * @Description 用户
- * @Date  2020/12/2 23:05
- * @Param
- * @return
+ * @Description 额外课程类
+ * @Date 2020/12/3 10:57
  **/
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
-    private String username;
-    private String password;
-    private int role;
+public class CourseExtra {
+    private int gradeID;
+    private String studentName;
+    private String courseName;
+    private int score;
 }

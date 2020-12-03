@@ -3,28 +3,31 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ccqstark.stugrademanage.mapper.StudentMapper">
-    <!--namespace对应mapper接口-->
 
-    <!-- id对应的就是接口定义的函数名 -->
     <select id="queryStudentList" resultType="Student">
-        SELECT * FROM student
+        SELECT * FROM student;
     </select>
 
-<!--    &lt;!&ndash; #{id}就是模板待填空位&ndash;&gt;-->
-<!--    <select id="queryByUserId" resultType="User">-->
-<!--        SELECT * FROM user WHERE id = #{id}-->
-<!--    </select>-->
-
     <insert id="addStudent" parameterType="Student">
-        INSERT into student (`number`,`name`) values (#{number},#{name})
+        INSERT into student (number, name,math,english,java,os,sports,average)
+        values (#{number},#{name},#{math},#{english},#{java},#{os},#{sports},#{average});
     </insert>
 
-<!--    <update id="updateUser" parameterType="User">-->
-<!--        UPDATE user SET name=#{name},pwd=#{pwd} where id = #{id}-->
-<!--    </update>-->
+    <update id="updateGrade" parameterType="Student">
+        Update student
+        SET number = #{number},
+            name  = #{name},
+            math = #{math},
+            english = #{english},
+            java = #{java},
+            os = #{os},
+            sports = #{sports},
+        WHERE student_id = #{studentID};
+    </update>
 
-<!--    <delete id="deleteUser" parameterType="int">-->
-<!--        DELETE FROM user WHERE id = #{id}-->
-<!--    </delete>-->
+    <delete id="deleteStudent" parameterType="int">
+        DELETE FROM student
+        WHERE student_id = #{studentID};
+    </delete>
 
 </mapper>
