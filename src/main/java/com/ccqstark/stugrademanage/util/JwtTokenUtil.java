@@ -15,9 +15,9 @@ import java.util.Map;
 @Component
 public class JwtTokenUtil {
 
-    //秘钥
-    private String secret = "myscret";
-    //过期时间
+    // 秘钥
+    private String secret = "ccqstark";
+    // 过期时间，这里是有效持续时间，单位秒，1296000秒为15天
     private long expiration = 1296000L;
 
     static final String CLAIM_KEY_USERNAME = "sub";
@@ -90,7 +90,6 @@ public class JwtTokenUtil {
     //设置过期时间
     private Date generateExpirationDate() {
         return new Date(System.currentTimeMillis() + expiration * 1000);
-//        return new Date(30 * 24 * 60);
     }
 
     private Boolean isTokenExpired(String token) {
@@ -152,7 +151,7 @@ public class JwtTokenUtil {
         return refreshedToken;
     }
 
-    //TODO,验证当前的token是否有效
+    // 验证当前的token是否有效
     public Boolean validateToken(String token, UserDetails userDetails) {
         User user = (User) userDetails;
         final String username = getUsernameFromToken(token);

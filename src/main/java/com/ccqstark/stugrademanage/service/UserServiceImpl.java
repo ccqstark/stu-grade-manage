@@ -18,7 +18,7 @@ import java.util.Map;
 
 @Service
 @Slf4j
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
@@ -42,16 +42,15 @@ public class UserServiceImpl implements UserService{
         User user = userMapper.findUser(username);
         if (user == null) {
             Map map = new HashMap();
-            map.put("code",0);
-            map.put("message","用户不存在.");
+            map.put("code", 0);
+            map.put("message", "用户不存在.");
             return map;
         }
         UserDetails userDetails = jwtUserDetailService.loadUserByUsername(username);
         if (!(new BCryptPasswordEncoder().matches(password, userDetails.getPassword()))) {
-            System.out.println(new BCryptPasswordEncoder().encode("123456"));
             Map map = new HashMap();
-            map.put("code",1);
-            map.put("message","密码错误..");
+            map.put("code", 400);
+            map.put("message", "密码错误");
             return map;
         }
         //TODO，将username和password被获得后封装到UsernamePasswordAuthenticationToken
@@ -66,7 +65,7 @@ public class UserServiceImpl implements UserService{
         final String realToken = jwtTokenUtil.generateToken(userDetails);
 
         Map map = new HashMap();
-        map.put("message", "token生成成功.");
+        map.put("code", 200);
         map.put("token", realToken);
 
         return map;

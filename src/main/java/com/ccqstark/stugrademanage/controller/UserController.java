@@ -5,6 +5,7 @@ import com.ccqstark.stugrademanage.pojo.Result;
 import com.ccqstark.stugrademanage.pojo.User;
 import com.ccqstark.stugrademanage.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,6 +42,8 @@ public class UserController {
 
     public Result registerUser(User user) {
 
+        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+
         userMapper.addUser(user);
 
         return new Result(200, "注册成功");
@@ -56,16 +59,6 @@ public class UserController {
     @PostMapping("/login")
     public Map loginUser(User user) {
 
-//        User userFound = userMapper.findUser(user.getUsername());
-//        if (userFound == null) {
-//            return new Result(400, "此用户不存在");
-//        }
-//
-//        if (!user.getPassword().equals(userFound.getPassword())) {
-//            return new Result(400, "密码错误");
-//        }
-//
-//        return new Result(200,"登录成功");
         return userService.login(user.getUsername(), user.getPassword());
     }
 

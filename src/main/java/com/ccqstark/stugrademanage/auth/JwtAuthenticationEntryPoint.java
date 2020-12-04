@@ -26,7 +26,7 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint, Se
         httpServletResponse.setHeader("Access_Control_Allow_Origin","*");
         httpServletResponse.setCharacterEncoding("UTF-8");
         httpServletResponse.setContentType("application/json; charset=utf-8");
-        Result result = new Result(400,"未登录");
+        Result result = new Result(-200,"未登录");
         log.info("需要身份认证:{}" ,result);
         httpServletResponse.getWriter().append(JSON.toJSONString(result));
     }
