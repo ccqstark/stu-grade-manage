@@ -29,7 +29,14 @@ public class CourseExtraController {
         this.uploadDAO = uploadDAO;
     }
 
-    @PostMapping("/batch")
+    /**
+     * @Author ccqstark
+     * @Description 用excel导入学生成绩
+     * @Date  2020/12/3 16:39
+     * @Param [file]
+     * @return com.ccqstark.stugrademanage.pojo.Result
+     **/
+    @PostMapping("/excel")
     public Result importGrade(MultipartFile file)throws IOException{
 
         EasyExcel.read(file.getInputStream(), CourseExtra.class, new UploadDataListener(uploadDAO)).sheet().doRead();

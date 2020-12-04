@@ -14,5 +14,5 @@ public interface UserMapper {
     int addUser(User user);
 
     User findUser(String username);
-    
+
 }

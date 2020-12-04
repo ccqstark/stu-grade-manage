@@ -3,10 +3,13 @@ package com.ccqstark.stugrademanage.controller;
 import com.ccqstark.stugrademanage.mapper.UserMapper;
 import com.ccqstark.stugrademanage.pojo.Result;
 import com.ccqstark.stugrademanage.pojo.User;
+import com.ccqstark.stugrademanage.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Map;
 
 /**
  * @Author ccqstark
@@ -23,6 +26,9 @@ public class UserController {
     public UserController (UserMapper userMapper){
         this.userMapper = userMapper;
     }
+
+    @Autowired
+    private UserService userService;
 
     /**
      * @return com.ccqstark.stugrademanage.pojo.Result
@@ -48,18 +54,19 @@ public class UserController {
      * @return com.ccqstark.stugrademanage.pojo.Result
      **/
     @PostMapping("/login")
-    public Result loginUser(User user) {
+    public Map loginUser(User user) {
 
-        User userFound = userMapper.findUser(user.getUsername());
-        if (userFound == null) {
-            return new Result(400, "此用户不存在");
-        }
-
-        if (!user.getPassword().equals(userFound.getPassword())) {
-            return new Result(400, "密码错误");
-        }
-
-        return new Result(200,"登录成功");
+//        User userFound = userMapper.findUser(user.getUsername());
+//        if (userFound == null) {
+//            return new Result(400, "此用户不存在");
+//        }
+//
+//        if (!user.getPassword().equals(userFound.getPassword())) {
+//            return new Result(400, "密码错误");
+//        }
+//
+//        return new Result(200,"登录成功");
+        return userService.login(user.getUsername(), user.getPassword());
     }
 
 }

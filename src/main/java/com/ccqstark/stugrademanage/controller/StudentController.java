@@ -1,11 +1,15 @@
 package com.ccqstark.stugrademanage.controller;
 
+import com.alibaba.excel.EasyExcel;
 import com.ccqstark.stugrademanage.mapper.StudentMapper;
 import com.ccqstark.stugrademanage.pojo.Result;
 import com.ccqstark.stugrademanage.pojo.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.List;
 
 /**
@@ -74,6 +78,19 @@ public class StudentController {
     public Result deleteOneStudent(int studentID){
         studentMapper.deleteStudent(studentID);
         return new Result(200,"删除成功");
+    }
+
+
+    @GetMapping("/excel")
+    public void download(HttpServletResponse response) throws IOException {
+
+        List<Student> list = studentMapper.queryStudentList();
+
+        // 这里URLEncoder.encode可以防止中文乱码 当然和easyexcel没有关系
+        String fileName = URLEncoder.encode("测试", "UTF-8").replaceAll("\\+", "%20");
+        response.setHeader("Content-disposition", "attachment;filename*=utf-8''" + fileName + ".xlsx");
+        EasyExcel.write(response.getOutputStream(), Student.class).sheet("模板").doWrite(list);
+
     }
 
 }

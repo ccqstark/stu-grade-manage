@@ -1,4 +1,4 @@
-package com.ccqstark.stugrademanage.config;
+package com.ccqstark.stugrademanage.auth;
 
 import org.springframework.stereotype.Component;
 import javax.servlet.*;
