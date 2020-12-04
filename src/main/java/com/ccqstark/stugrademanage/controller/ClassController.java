@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @Author ccqstark
  * @Description 班级Controller
@@ -19,6 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class ClassController {
 
     private ClassMapper classMapper;
+
+    @Autowired
+    private HttpServletRequest httpServletRequest;
 
     @Autowired
     public ClassController(ClassMapper classMapper) {
@@ -34,6 +39,10 @@ public class ClassController {
      **/
     @PostMapping("/new")
     public Result addNewClass(String className){
+
+        if (UserController.getRoleByToken(httpServletRequest) == 0){
+            return new Result(400, "没有操作权限");
+        }
 
         classMapper.addClass(className);
 
@@ -66,6 +75,10 @@ public class ClassController {
      **/
     @PostMapping("/course")
     public Result addExtraCourse(String className, String ExtraCourse) {
+
+        if (UserController.getRoleByToken(httpServletRequest) == 0){
+            return new Result(400, "没有操作权限");
+        }
 
         String courseExtraStr = classMapper.queryExtraCourse(className);
         courseExtraStr = courseExtraStr + "," + ExtraCourse;

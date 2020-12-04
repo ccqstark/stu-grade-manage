@@ -29,6 +29,7 @@ public class JwtTokenUtil {
     private static final String AUDIENCE_MOBILE = "mobile";
     private static final String AUDIENCE_TABLET = "tablet";
 
+    // 从token中获取用户名
     public String getUsernameFromToken(String token) {
         String username;
         try {
@@ -40,6 +41,7 @@ public class JwtTokenUtil {
         return username;
     }
 
+    // 从token中获取创建时间
     public Date getCreatedDateFromToken(String token) {
         Date created;
         try {
@@ -51,6 +53,7 @@ public class JwtTokenUtil {
         return created;
     }
 
+    // 从token中获取过期时间
     public Date getExpirationDateFromToken(String token) {
         Date expiration;
         try {
@@ -63,6 +66,7 @@ public class JwtTokenUtil {
         return expiration;
     }
 
+    // 从token中获取接收jwt的一方
     public String getAudienceFromToken(String token) {
         String audience;
         try {
@@ -74,7 +78,8 @@ public class JwtTokenUtil {
         return audience;
     }
 
-    private Claims getClaimsFromToken(String token) {
+    // 获取playload中的claims
+    public Claims getClaimsFromToken(String token) {
         Claims claims;
         try {
             claims = Jwts.parser()
@@ -92,6 +97,7 @@ public class JwtTokenUtil {
         return new Date(System.currentTimeMillis() + expiration * 1000);
     }
 
+    // 判断过期时间是否超过了当前时间
     private Boolean isTokenExpired(String token) {
         final Date expiration = getExpirationDateFromToken(token);
         return expiration.before(new Date());
@@ -118,13 +124,18 @@ public class JwtTokenUtil {
         return (AUDIENCE_TABLET.equals(audience) || AUDIENCE_MOBILE.equals(audience));
     }
 
-    public String generateToken(UserDetails userDetails) {
+    // 最终返回生成的token
+    public String generateToken(User user) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put(CLAIM_KEY_USERNAME, userDetails.getUsername());
+        claims.put(CLAIM_KEY_USERNAME, user.getUsername());
         claims.put(CLAIM_KEY_CREATED, new Date());
+        // 私有声明，用户id和role
+        claims.put("user_id", user.getUser_id());
+        claims.put("role",user.getRole());
         return generateToken(claims);
     }
 
+    // 三部分生成一个token
     String generateToken(Map<String, Object> claims) {
         return Jwts.builder()
                 .setClaims(claims)

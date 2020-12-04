@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 /**
@@ -29,6 +30,9 @@ public class CourseExtraController {
         this.uploadDAO = uploadDAO;
     }
 
+    @Autowired
+    private HttpServletRequest httpServletRequest;
+
     /**
      * @Author ccqstark
      * @Description 用excel导入学生成绩
@@ -39,10 +43,13 @@ public class CourseExtraController {
     @PostMapping("/excel")
     public Result importGrade(MultipartFile file)throws IOException{
 
+        if (UserController.getRoleByToken(httpServletRequest) == 0){
+            return new Result(400, "没有操作权限");
+        }
+
         EasyExcel.read(file.getInputStream(), CourseExtra.class, new UploadDataListener(uploadDAO)).sheet().doRead();
 
         return new Result(200,"导入成功");
     }
-
 
 }

@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Student {
     @ExcelIgnore
-    private int studentID;
+    private int student_id;
     @ExcelProperty("学号")
     private String number;
     @ExcelProperty("姓名")

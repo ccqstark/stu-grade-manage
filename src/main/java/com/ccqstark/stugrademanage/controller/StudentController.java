@@ -7,6 +7,7 @@ import com.ccqstark.stugrademanage.pojo.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URLEncoder;
@@ -27,6 +28,9 @@ public class StudentController {
         this.studentMapper = studentMapper;
     }
 
+    @Autowired
+    private HttpServletRequest httpServletRequest;
+    
     /**
      * @Author ccqstark
      * @Description 创建新学生
@@ -36,6 +40,11 @@ public class StudentController {
      **/
     @PostMapping("/new")
     public Result createStudent(Student newStudent){
+
+        if (UserController.getRoleByToken(httpServletRequest) == 0){
+            return new Result(400, "没有操作权限");
+        }
+        
         studentMapper.addStudent(newStudent);
 
         return new Result(200,"创建成功!");
@@ -63,6 +72,11 @@ public class StudentController {
      **/
     @PutMapping("/one")
     public Result modifyStudent(Student student){
+
+        if (UserController.getRoleByToken(httpServletRequest) == 0){
+            return new Result(400, "没有操作权限");
+        }
+        
         studentMapper.updateGrade(student);
         return new Result(200,"修改成功");
     }
@@ -76,18 +90,30 @@ public class StudentController {
      **/
     @DeleteMapping("/one")
     public Result deleteOneStudent(int studentID){
+
+        if (UserController.getRoleByToken(httpServletRequest) == 0){
+            return new Result(400, "没有操作权限");
+        }
+        
         studentMapper.deleteStudent(studentID);
         return new Result(200,"删除成功");
     }
 
-
+    
+    /**
+     * @Author ccqstark
+     * @Description 导出excel
+     * @Date  2020/12/4 22:46
+     * @Param [response]
+     * @return void
+     **/
     @GetMapping("/excel")
-    public void download(HttpServletResponse response) throws IOException {
+    public void exportExcel(HttpServletResponse response) throws IOException {
 
         List<Student> list = studentMapper.queryStudentList();
 
-        // 这里URLEncoder.encode可以防止中文乱码 当然和easyexcel没有关系
-        String fileName = URLEncoder.encode("测试", "UTF-8").replaceAll("\\+", "%20");
+        // URLEncoder.encode防止中文乱码
+        String fileName = URLEncoder.encode("导出", "UTF-8").replaceAll("\\+", "%20");
         response.setHeader("Content-disposition", "attachment;filename*=utf-8''" + fileName + ".xlsx");
         EasyExcel.write(response.getOutputStream(), Student.class).sheet("模板").doWrite(list);
 

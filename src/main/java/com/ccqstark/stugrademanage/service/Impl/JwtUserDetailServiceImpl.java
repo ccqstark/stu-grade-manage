@@ -1,9 +1,9 @@
-package com.ccqstark.stugrademanage.service;
+package com.ccqstark.stugrademanage.service.Impl;
 
 import com.ccqstark.stugrademanage.pojo.User;
+import com.ccqstark.stugrademanage.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -16,13 +16,13 @@ public class JwtUserDetailServiceImpl implements UserDetailsService {
     private UserService userService;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public User loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userService.getUserByUserName(username);
-        if(user == null) {
+        if (user == null) {
             log.info("用户不存在");
             throw new UsernameNotFoundException(String.format("用户名为 %s 的用户不存在！", username));
         } else {
-            return  new User(user.getUsername(), user.getPassword(),user.getRole());
+            return new User(user.getUser_id(), user.getUsername(), user.getPassword(), user.getRole());
         }
     }
 }

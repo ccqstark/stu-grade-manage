@@ -36,17 +36,20 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
         String requestUrl = httpServletRequest.getRequestURI();
         log.info("requestURL: {}", requestUrl);
+
+        // 获取前端传过来的token
         String authToken = httpServletRequest.getHeader(this.tokenHeader);
 
-        String stuId = jwtTokenUtil.getUsernameFromToken(authToken);
+        // 获取token中的username
+        String tokenUsername = jwtTokenUtil.getUsernameFromToken(authToken);
 
-        log.info("checking authentication for user " + stuId);
+        log.info("checking authentication for user " + tokenUsername);
 
-        //当token中的username不为空时进行验证token是否是有效的token
-        if (stuId != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+        // 当token中的username不为空时进行验证token是否是有效的token
+        if (tokenUsername != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             //token中username不为空，并且Context中的认证为空，进行token验证
             //TODO,从数据库得到带有密码的完整user信息
-            UserDetails userDetails = this.userDetailsService.loadUserByUsername(stuId);
+            UserDetails userDetails = this.userDetailsService.loadUserByUsername(tokenUsername);
             log.info("加载userDetails:{}", userDetails.getUsername());
             if (jwtTokenUtil.validateToken(authToken, userDetails)) {
                 /**
@@ -60,7 +63,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
                 UsernamePasswordAuthenticationToken authentication =
                         new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
-                log.info("authenticated user " + stuId + ", setting security context");
+                log.info("authenticated user " + tokenUsername + ", setting security context");
                 //将authentication放入SecurityContextHolder中
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }

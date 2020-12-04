@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Class {
-    private int classID;
-    private String className;
-    private String courseExtra;
+    private int class_id;
+    private String class_name;
+    private String course_extra;
 }

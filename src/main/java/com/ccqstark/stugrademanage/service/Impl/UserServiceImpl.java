@@ -1,7 +1,8 @@
-package com.ccqstark.stugrademanage.service;
+package com.ccqstark.stugrademanage.service.Impl;
 
 import com.ccqstark.stugrademanage.mapper.UserMapper;
 import com.ccqstark.stugrademanage.pojo.User;
+import com.ccqstark.stugrademanage.service.UserService;
 import com.ccqstark.stugrademanage.util.JwtTokenUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -42,11 +42,11 @@ public class UserServiceImpl implements UserService {
         User user = userMapper.findUser(username);
         if (user == null) {
             Map map = new HashMap();
-            map.put("code", 0);
-            map.put("message", "用户不存在.");
+            map.put("code", 400);
+            map.put("message", "用户不存在");
             return map;
         }
-        UserDetails userDetails = jwtUserDetailService.loadUserByUsername(username);
+        User userDetails = jwtUserDetailService.loadUserByUsername(username);
         if (!(new BCryptPasswordEncoder().matches(password, userDetails.getPassword()))) {
             Map map = new HashMap();
             map.put("code", 400);

@@ -3,6 +3,7 @@ package com.ccqstark.stugrademanage.config;
 import com.ccqstark.stugrademanage.auth.JwtAuthenticationEntryPoint;
 import com.ccqstark.stugrademanage.auth.JwtAuthenticationTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -25,6 +26,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
+    @Qualifier("jwtUserDetailServiceImpl")
     @Autowired
     private UserDetailsService userDetailsService;
 

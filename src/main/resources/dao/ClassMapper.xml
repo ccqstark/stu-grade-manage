@@ -5,7 +5,7 @@
 <mapper namespace="com.ccqstark.stugrademanage.mapper.ClassMapper">
 
     <insert id="addClass" parameterType="String">
-        INSERT into class class_name value #{className};
+        INSERT into class (class_name) values (#{className});
     </insert>
 
     <select id="queryExtraCourse" parameterType="String" resultType="String">
@@ -17,7 +17,6 @@
         SET course_extra = #{extraCourseStr}
         WHERE class_name = #{className};
     </update>
-
 
 
 </mapper>

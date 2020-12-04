@@ -9,9 +9,7 @@
     </insert>
 
     <select id="findUser" parameterType="String" resultType="User">
-        SELECT `username`,`password` FROM user WHERE `username`=#{username};
+        SELECT * FROM user WHERE `username`=#{username};
     </select>
-
-
 
 </mapper>
