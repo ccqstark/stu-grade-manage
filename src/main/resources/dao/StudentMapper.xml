@@ -4,18 +4,19 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ccqstark.stugrademanage.mapper.StudentMapper">
 
-    <select id="queryStudentList" resultType="Student">
-        SELECT * FROM student;
+    <select id="queryStudentListByClassID" parameterType="int" resultType="Student">
+        SELECT * FROM student WHERE `class_id` = #{class_id};
     </select>
 
     <insert id="addStudent" parameterType="Student">
-        INSERT into student (number, name,math,english,java,os,sports,average)
-        values (#{number},#{name},#{math},#{english},#{java},#{os},#{sports},#{average});
+        INSERT into student (number, class_id, name, math, english, java, os, sports)
+        values (#{number},#{class_id},#{name},#{math},#{english},#{java},#{os},#{sports});
     </insert>
 
     <update id="updateGrade" parameterType="Student">
         Update student
         SET number = #{number},
+            class_id = #{class_id},
             name  = #{name},
             math = #{math},
             english = #{english},

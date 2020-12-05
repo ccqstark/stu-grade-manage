@@ -50,10 +50,8 @@ public class UploadDataListener extends AnalysisEventListener<CourseExtra> {
      */
     @Override
     public void invoke(CourseExtra data, AnalysisContext context) {
+
         JSON.toJSONString(data);
-
-        System.out.println(data.toString());
-
         list.add(data);
         // 达到BATCH_COUNT了，需要去存储一次数据库，防止数据几万条数据在内存，容易OOM
         if (list.size() >= BATCH_COUNT) {

@@ -81,14 +81,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/v2/api-docs").permitAll()
                 .antMatchers("/configuration/ui").permitAll()
                 .antMatchers("/configuration/security").permitAll()
-                .antMatchers("/user/login").permitAll()
-                .antMatchers("/user/register").permitAll()
+                .antMatchers("/user/**").permitAll()
                 //配置允许匿名访问的路径
                 .anyRequest().authenticated();
 
         //配置自己的验证过滤器
-        httpSecurity
-                .addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
+        httpSecurity.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
 
         // disable page caching
         httpSecurity.headers().cacheControl();

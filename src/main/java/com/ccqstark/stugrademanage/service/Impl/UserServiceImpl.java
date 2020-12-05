@@ -39,14 +39,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Map login(String username, String password) {
-        User user = userMapper.findUser(username);
-        if (user == null) {
+        User userDetails = jwtUserDetailService.loadUserByUsername(username);
+
+        if (userDetails == null) {
             Map map = new HashMap();
             map.put("code", 400);
             map.put("message", "用户不存在");
             return map;
         }
-        User userDetails = jwtUserDetailService.loadUserByUsername(username);
+
         if (!(new BCryptPasswordEncoder().matches(password, userDetails.getPassword()))) {
             Map map = new HashMap();
             map.put("code", 400);

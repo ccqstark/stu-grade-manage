@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 public class CourseExtra {
     private int grade_id;
     private String student_name;
+    private String class_name;
     private String course_name;
     private int score;
 }

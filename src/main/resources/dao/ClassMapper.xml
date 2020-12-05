@@ -4,6 +4,10 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ccqstark.stugrademanage.mapper.ClassMapper">
 
+    <select id="getAllClass" resultType="Classes">
+        SELECT * FROM class;
+    </select>
+
     <insert id="addClass" parameterType="String">
         INSERT into class (class_name) values (#{className});
     </insert>

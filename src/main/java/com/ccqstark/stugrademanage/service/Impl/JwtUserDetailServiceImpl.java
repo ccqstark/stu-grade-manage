@@ -22,7 +22,7 @@ public class JwtUserDetailServiceImpl implements UserDetailsService {
             log.info("用户不存在");
             throw new UsernameNotFoundException(String.format("用户名为 %s 的用户不存在！", username));
         } else {
-            return new User(user.getUser_id(), user.getUsername(), user.getPassword(), user.getRole());
+            return user;
         }
     }
 }

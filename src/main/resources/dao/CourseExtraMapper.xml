@@ -6,11 +6,15 @@
 
     <!--将所有信息插入PP表里面，传入参数为list,通过<foreach>来遍历list-->
     <insert id="BatchInsertCourseExtra" parameterType="java.util.List">
-        insert into grade_extra (student_name,course_name,score) VALUES
+        insert into grade_extra (student_name,class_name,course_name,score) VALUES
         <foreach collection="list" item="one_courseExtra" index="index" separator=",">
-            (#{one_courseExtra.studentName},#{one_courseExtra.courseName},#{one_courseExtra.score})
+            (#{one_courseExtra.student_name},#{one_courseExtra.class_name},#{one_courseExtra.course_name},#{one_courseExtra.score})
         </foreach>
     </insert>
+
+    <select id="getCourseExtraGrade" parameterType="String" resultType="CourseExtra">
+        SELECT * FROM grade_extra WHERE class_name = #{className} AND course_name = #{courseName};
+    </select>
 
 
 </mapper>

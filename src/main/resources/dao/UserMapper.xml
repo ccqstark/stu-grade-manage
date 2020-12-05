@@ -5,7 +5,7 @@
 <mapper namespace="com.ccqstark.stugrademanage.mapper.UserMapper">
 
     <insert id="addUser" parameterType="User">
-        INSERT into user (`username`,`password`,`role`) values (#{username},#{password},#{role})
+        INSERT into user (`username`,`password`,`email`,`role`) values (#{username},#{password},#{email},#{role})
     </insert>
 
     <select id="findUser" parameterType="String" resultType="User">

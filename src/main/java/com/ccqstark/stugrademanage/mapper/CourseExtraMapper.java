@@ -1,6 +1,7 @@
 package com.ccqstark.stugrademanage.mapper;
 
 
+import com.ccqstark.stugrademanage.pojo.CourseExtra;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -14,5 +15,7 @@ import java.util.List;
 public interface CourseExtraMapper {
 
     int BatchInsertCourseExtra(List list);
+
+    List<CourseExtra> getCourseExtraGrade(String className, String courseName);
 
 }

@@ -52,14 +52,14 @@ public class StudentController {
 
     /**
      * @Author ccqstark
-     * @Description 获取学生列表 TODO: 排名算法
-     * @Date  2020/12/2 22:55
-     * @Param []
+     * @Description 获取班级学生列表 TODO: 排名算法
+     * @Date  2020/12/5 21:21
+     * @Param [class_id]
      * @return java.util.List<com.ccqstark.stugrademanage.pojo.Student>
      **/
-    @GetMapping("/all")
-    public List<Student> getStudentList(){
-        List<Student> list = studentMapper.queryStudentList();
+    @GetMapping("/class/{class_id}")
+    public List<Student> getStudentList(@PathVariable int class_id){
+        List<Student> list = studentMapper.queryStudentListByClassID(class_id);
         return list;
     }
 
@@ -107,10 +107,10 @@ public class StudentController {
      * @Param [response]
      * @return void
      **/
-    @GetMapping("/excel")
-    public void exportExcel(HttpServletResponse response) throws IOException {
+    @GetMapping("/excel/{class_id}")
+    public void exportExcel(HttpServletResponse response, @PathVariable int class_id) throws IOException {
 
-        List<Student> list = studentMapper.queryStudentList();
+        List<Student> list = studentMapper.queryStudentListByClassID(class_id);
 
         // URLEncoder.encode防止中文乱码
         String fileName = URLEncoder.encode("导出", "UTF-8").replaceAll("\\+", "%20");

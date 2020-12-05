@@ -1,7 +1,10 @@
 package com.ccqstark.stugrademanage.mapper;
 
 
+import com.ccqstark.stugrademanage.pojo.Classes;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * @Author ccqstark
@@ -12,6 +15,8 @@ import org.springframework.stereotype.Repository;
  **/
 @Repository
 public interface ClassMapper {
+
+    List<Classes> getAllClass();
 
     int addClass(String ClassName);
 

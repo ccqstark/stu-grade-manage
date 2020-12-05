@@ -13,9 +13,9 @@ import java.util.List;
 @Repository
 public interface StudentMapper {
 
-    List<Student> queryStudentList();
+    List<Student> queryStudentListByClassID(int class_id);
 
-    int addStudent(Student student);
+    void addStudent(Student student);
 
     int updateGrade(Student student);
 

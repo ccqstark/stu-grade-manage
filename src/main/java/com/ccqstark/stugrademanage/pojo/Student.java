@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 /**
  * @Author ccqstark
  * @Description 学生类，包括成绩
- * @Date  2020/12/2 21:45
- * @Param 
- * @return 
+ * @Date 2020/12/2 21:45
+ * @Param
+ * @return
  **/
 @Data
 @NoArgsConstructor
@@ -19,20 +19,28 @@ import lombok.NoArgsConstructor;
 public class Student {
     @ExcelIgnore
     private int student_id;
+
     @ExcelProperty("学号")
     private String number;
+
+    @ExcelIgnore
+    private int class_id;
+
     @ExcelProperty("姓名")
     private String name;
+
     @ExcelProperty("数学")
     private int math;
+
     @ExcelProperty("英语")
     private int english;
+
     @ExcelProperty("Java")
     private int java;
+
     @ExcelProperty("操作系统")
     private int os;
+
     @ExcelProperty("体育")
     private int sports;
-    @ExcelIgnore
-    private int average;
 }

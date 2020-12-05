@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Class {
+public class Classes {
     private int class_id;
     private String class_name;
     private String course_extra;

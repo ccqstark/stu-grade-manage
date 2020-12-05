@@ -137,7 +137,13 @@ public class JwtTokenUtil {
 
     // 三部分生成一个token
     String generateToken(Map<String, Object> claims) {
+        // 设置header
+        Map<String,Object> header = new HashMap<>();
+        header.put("alg","HS512");
+        header.put("typ","JWT");
+        // 三部分拼接并签名
         return Jwts.builder()
+                .setHeader(header)
                 .setClaims(claims)
                 .setExpiration(generateExpirationDate())
                 .signWith(SignatureAlgorithm.HS512, secret)
