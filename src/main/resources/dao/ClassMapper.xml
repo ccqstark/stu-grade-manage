@@ -8,6 +8,14 @@
         SELECT * FROM class;
     </select>
 
+    <select id="getClassByName" resultType="Classes">
+        SELECT * FROM class WHERE class_name = #{class_name};
+    </select>
+
+    <select id="getExtraCourse" resultType="String">
+        SELECT course_extra FROM class WHERE class_id = #{class_id};
+    </select>
+
     <insert id="addClass" parameterType="String">
         INSERT into class (class_name) values (#{className});
     </insert>

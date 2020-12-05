@@ -73,6 +73,10 @@ public class ClassController {
             return new Result(400, "没有操作权限");
         }
 
+        if (classMapper.getClassByName(className)!=null){
+            return new Result(400, "此班级已存在");
+        }
+
         classMapper.addClass(className);
 
         return new Result(200, "创建成功");
@@ -110,7 +114,12 @@ public class ClassController {
         }
 
         String courseExtraStr = classMapper.queryExtraCourse(className);
-        courseExtraStr = courseExtraStr + "," + ExtraCourse;
+        if (!courseExtraStr.equals("")){
+            courseExtraStr = courseExtraStr + "," + ExtraCourse;
+        } else{
+            courseExtraStr = ExtraCourse;
+        }
+
         classMapper.updateExtraCourse(className, courseExtraStr);
 
         return new Result(200, "添加成功");

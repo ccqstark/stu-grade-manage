@@ -1,6 +1,7 @@
 package com.ccqstark.stugrademanage.controller;
 
 import com.alibaba.excel.EasyExcel;
+import com.ccqstark.stugrademanage.mapper.ClassMapper;
 import com.ccqstark.stugrademanage.mapper.StudentMapper;
 import com.ccqstark.stugrademanage.pojo.Result;
 import com.ccqstark.stugrademanage.pojo.Student;
@@ -11,7 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author ccqstark
@@ -23,9 +26,11 @@ import java.util.List;
 public class StudentController {
 
     private StudentMapper studentMapper;
+    private ClassMapper classMapper;
     @Autowired
-    public StudentController(StudentMapper studentMapper){
+    public StudentController(StudentMapper studentMapper,ClassMapper classMapper){
         this.studentMapper = studentMapper;
+        this.classMapper = classMapper;
     }
 
     @Autowired
@@ -53,14 +58,19 @@ public class StudentController {
     /**
      * @Author ccqstark
      * @Description 获取班级学生列表 TODO: 排名算法
-     * @Date  2020/12/5 21:21
+     * @Date  2020/12/6 0:10
      * @Param [class_id]
-     * @return java.util.List<com.ccqstark.stugrademanage.pojo.Student>
+     * @return java.util.Map
      **/
     @GetMapping("/class/{class_id}")
-    public List<Student> getStudentList(@PathVariable int class_id){
-        List<Student> list = studentMapper.queryStudentListByClassID(class_id);
-        return list;
+    public Map getStudentList(@PathVariable int class_id){
+        String courseExtraStr = classMapper.getExtraCourse(class_id);
+        List<Student> studentList = studentMapper.queryStudentListByClassID(class_id);
+
+        Map<String,Object> resultMap = new HashMap<String,Object>();
+        resultMap.put("course_extra",courseExtraStr);
+        resultMap.put("student_list",studentList);
+        return resultMap;
     }
 
     /**
@@ -99,7 +109,6 @@ public class StudentController {
         return new Result(200,"删除成功");
     }
 
-    
     /**
      * @Author ccqstark
      * @Description 导出excel

@@ -18,6 +18,10 @@ public interface ClassMapper {
 
     List<Classes> getAllClass();
 
+    String getExtraCourse(int class_id);
+
+    Classes getClassByName(String class_name);
+
     int addClass(String ClassName);
 
     String queryExtraCourse(String className);
