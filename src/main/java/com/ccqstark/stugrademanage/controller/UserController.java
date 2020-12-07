@@ -1,6 +1,7 @@
 package com.ccqstark.stugrademanage.controller;
 
 import com.ccqstark.stugrademanage.mapper.UserMapper;
+import com.ccqstark.stugrademanage.pojo.NewUser;
 import com.ccqstark.stugrademanage.pojo.Result;
 import com.ccqstark.stugrademanage.pojo.User;
 import com.ccqstark.stugrademanage.service.MailService;
@@ -9,9 +10,7 @@ import com.ccqstark.stugrademanage.service.UserService;
 import com.ccqstark.stugrademanage.util.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
@@ -52,7 +51,7 @@ public class UserController {
      * @Param [user]
      **/
     @PostMapping("/email")
-    public Result registerUser(String email) {
+    public Result registerUser(@RequestParam(name = "email") String email) {
 
         int vercode = 1000 + (int) (Math.random() * (9999 - 1000));
         mailService.sendSimpleMail(
@@ -67,8 +66,9 @@ public class UserController {
     }
 
     @PostMapping("ver_register")
-    public Result verifyTheCode(String vercode, User user) {
+    public Result verifyTheCode(@RequestBody NewUser user) {
 
+        String vercode = user.getVercode();
         String vercode_cache = (String) redisService.get("vercode" + user.getEmail());
 
         if (vercode.equals(vercode_cache)) {
@@ -88,7 +88,6 @@ public class UserController {
         return new Result(400, "验证码错误");
     }
 
-
     /**
      * @return com.ccqstark.stugrademanage.pojo.Result
      * @Author ccqstark
@@ -97,7 +96,7 @@ public class UserController {
      * @Param [user]
      **/
     @PostMapping("/login")
-    public Map loginUser(User user) {
+    public Map loginUser(@RequestBody User user) {
 
         return userService.login(user.getUsername(), user.getPassword());
     }

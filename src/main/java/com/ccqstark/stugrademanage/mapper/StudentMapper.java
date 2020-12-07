@@ -19,6 +19,8 @@ public interface StudentMapper {
 
     int updateGrade(Student student);
 
-    int deleteStudent(int studentID);
+    String findStudentByNumber(String number);
+
+    int deleteStudent(String number);
 
 }

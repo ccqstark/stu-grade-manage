@@ -7,10 +7,7 @@ import com.ccqstark.stugrademanage.pojo.Classes;
 import com.ccqstark.stugrademanage.pojo.Result;
 import com.ccqstark.stugrademanage.pojo.Student;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -67,13 +64,13 @@ public class ClassController {
      * @Param [className]
      **/
     @PostMapping("/new")
-    public Result addNewClass(String className) {
+    public Result addNewClass(@RequestParam(name = "class_name") String className) {
 
         if (UserController.getRoleByToken(httpServletRequest) == 0) {
             return new Result(400, "没有操作权限");
         }
 
-        if (classMapper.getClassByName(className)!=null){
+        if (classMapper.getClassByName(className) != null) {
             return new Result(400, "此班级已存在");
         }
 
@@ -90,9 +87,9 @@ public class ClassController {
      * @Param [className]
      **/
     @GetMapping("/course")
-    public String[] getExtraCourse(String className) {
+    public String[] getExtraCourse(@RequestParam(name = "class_id") int class_id) {
 
-        String courseExtraStr = classMapper.queryExtraCourse(className);
+        String courseExtraStr = classMapper.getExtraCourse(class_id);
         String[] courseExtraStrList = courseExtraStr.split(",");
 
         return courseExtraStrList;
@@ -107,16 +104,19 @@ public class ClassController {
      * @Param [className, ExtraCourse]
      **/
     @PostMapping("/course")
-    public Result addExtraCourse(String className, String ExtraCourse) {
+    public Result addExtraCourse(@RequestBody Classes classes) {
 
         if (UserController.getRoleByToken(httpServletRequest) == 0) {
             return new Result(400, "没有操作权限");
         }
 
+        String className = classes.getClass_name();
+        String ExtraCourse = classes.getCourse_extra();
+
         String courseExtraStr = classMapper.queryExtraCourse(className);
-        if (!courseExtraStr.equals("")){
+        if (!courseExtraStr.equals("")) {
             courseExtraStr = courseExtraStr + "," + ExtraCourse;
-        } else{
+        } else {
             courseExtraStr = ExtraCourse;
         }
 

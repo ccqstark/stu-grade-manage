@@ -44,7 +44,7 @@ public class StudentController {
      * @return com.ccqstark.stugrademanage.pojo.Result
      **/
     @PostMapping("/new")
-    public Result createStudent(Student newStudent){
+    public Result createStudent(@RequestBody Student newStudent){
 
         if (UserController.getRoleByToken(httpServletRequest) == 0){
             return new Result(400, "没有操作权限");
@@ -81,7 +81,7 @@ public class StudentController {
      * @return com.ccqstark.stugrademanage.pojo.Result
      **/
     @PutMapping("/one")
-    public Result modifyStudent(Student student){
+    public Result modifyStudent(@RequestBody Student student){
 
         if (UserController.getRoleByToken(httpServletRequest) == 0){
             return new Result(400, "没有操作权限");
@@ -99,13 +99,19 @@ public class StudentController {
      * @return com.ccqstark.stugrademanage.pojo.Result
      **/
     @DeleteMapping("/one")
-    public Result deleteOneStudent(int studentID){
+    public Result deleteOneStudent(@RequestParam(name = "number") String number){
 
         if (UserController.getRoleByToken(httpServletRequest) == 0){
             return new Result(400, "没有操作权限");
         }
+
+        System.out.println(number);
+
+        if(studentMapper.findStudentByNumber(number)==null){
+            return new Result(400,"此学生不存在");
+        }
         
-        studentMapper.deleteStudent(studentID);
+        studentMapper.deleteStudent(number);
         return new Result(200,"删除成功");
     }
 

@@ -2,12 +2,14 @@ package com.ccqstark.stugrademanage.controller;
 
 import com.alibaba.excel.EasyExcel;
 import com.ccqstark.stugrademanage.mapper.CourseExtraMapper;
+import com.ccqstark.stugrademanage.pojo.Classes;
 import com.ccqstark.stugrademanage.pojo.CourseExtra;
 import com.ccqstark.stugrademanage.pojo.Result;
 import com.ccqstark.stugrademanage.pojo.UploadDAO;
 import com.ccqstark.stugrademanage.util.UploadDataListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -58,11 +60,20 @@ public class CourseExtraController {
         return new Result(200, "导入成功");
     }
 
+    /**
+     * @Author ccqstark
+     * @Description 获取此额外课程的成绩列表
+     * @Date  2020/12/7 2:03
+     * @Param [classes]
+     * @return java.util.List<com.ccqstark.stugrademanage.pojo.CourseExtra>
+     **/
     @PostMapping("/one")
-    public List<CourseExtra> getExtraCourseGrade(String className, String courseName) {
+    public List<CourseExtra> getExtraCourseGrade(@RequestBody Classes classes) {
+
+        String className = classes.getClass_name();
+        String courseName = classes.getCourse_extra();
         List<CourseExtra> extraGradeList = courseExtraMapper.getCourseExtraGrade(className, courseName);
         return extraGradeList;
     }
-
 
 }

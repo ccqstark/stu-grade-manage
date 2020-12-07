@@ -26,9 +26,15 @@
         WHERE student_id = #{studentID};
     </update>
 
-    <delete id="deleteStudent" parameterType="int">
+
+    <select id="findStudentByNumber" parameterType="String" resultType="String">
+        SELECT `number` FROM student
+        WHERE `number` = #{number};
+    </select>
+
+    <delete id="deleteStudent" parameterType="String">
         DELETE FROM student
-        WHERE student_id = #{studentID};
+        WHERE `number` = #{number};
     </delete>
 
 </mapper>
