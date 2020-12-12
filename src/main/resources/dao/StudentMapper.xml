@@ -22,8 +22,8 @@
             english = #{english},
             java = #{java},
             os = #{os},
-            sports = #{sports},
-        WHERE student_id = #{studentID};
+            sports = #{sports}
+        WHERE student_id = #{student_id};
     </update>
 
 

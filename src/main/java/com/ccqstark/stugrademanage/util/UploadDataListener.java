@@ -10,10 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 模板的读取类
- *
- * @author Jiaju Zhuang
- */
+ * @Author ccqstark
+ * @Description 导入excel的数据持久化类
+ * @Date  2020/12/10 9:22
+ **/
 // 有个很重要的点 DemoDataListener 不能被spring管理，要每次读取excel都要new,然后里面用到spring可以构造方法传进去
 public class UploadDataListener extends AnalysisEventListener<CourseExtra> {
 

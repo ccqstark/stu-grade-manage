@@ -7,6 +7,7 @@ import com.ccqstark.stugrademanage.pojo.CourseExtra;
 import com.ccqstark.stugrademanage.pojo.Result;
 import com.ccqstark.stugrademanage.pojo.UploadDAO;
 import com.ccqstark.stugrademanage.util.UploadDataListener;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,7 +24,7 @@ import java.util.List;
  * @Description 额外课程Controller
  * @Date 2020/12/3 11:02
  **/
-
+@Slf4j
 @RestController
 @RequestMapping("/grade_extra")
 public class CourseExtraController {

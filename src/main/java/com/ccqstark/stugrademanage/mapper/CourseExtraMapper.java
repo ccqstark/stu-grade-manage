@@ -16,6 +16,6 @@ public interface CourseExtraMapper {
 
     int BatchInsertCourseExtra(List list);
 
-    List<CourseExtra> getCourseExtraGrade(String className, String courseName);
+    List<CourseExtra> getCourseExtraGrade(String class_name, String course_name);
 
 }

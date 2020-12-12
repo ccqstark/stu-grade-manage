@@ -8,6 +8,7 @@ import com.ccqstark.stugrademanage.service.MailService;
 import com.ccqstark.stugrademanage.service.RedisService;
 import com.ccqstark.stugrademanage.service.UserService;
 import com.ccqstark.stugrademanage.util.JwtTokenUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,7 @@ import java.util.Map;
  * @Description 用户Controller
  * @Date 2020/12/1 1:03
  **/
+@Slf4j
 @RestController
 @RequestMapping("/user")
 public class UserController {

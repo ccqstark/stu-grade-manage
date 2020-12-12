@@ -5,6 +5,7 @@ import com.ccqstark.stugrademanage.mapper.ClassMapper;
 import com.ccqstark.stugrademanage.mapper.StudentMapper;
 import com.ccqstark.stugrademanage.pojo.Result;
 import com.ccqstark.stugrademanage.pojo.Student;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +22,7 @@ import java.util.Map;
  * @Description 学生Controller
  * @Date  2020/12/1 1:02
  **/
+@Slf4j
 @RestController
 @RequestMapping("/student")
 public class StudentController {
@@ -86,7 +88,6 @@ public class StudentController {
         if (UserController.getRoleByToken(httpServletRequest) == 0){
             return new Result(400, "没有操作权限");
         }
-        
         studentMapper.updateGrade(student);
         return new Result(200,"修改成功");
     }

@@ -44,22 +44,22 @@ public class UserServiceImpl implements UserService {
         if (userDetails == null) {
             Map map = new HashMap();
             map.put("code", 400);
-            map.put("message", "用户不存在");
+            map.put("msg", "用户不存在");
             return map;
         }
 
         if (!(new BCryptPasswordEncoder().matches(password, userDetails.getPassword()))) {
             Map map = new HashMap();
             map.put("code", 400);
-            map.put("message", "密码错误");
+            map.put("msg", "密码错误");
             return map;
         }
-        //TODO，将username和password被获得后封装到UsernamePasswordAuthenticationToken
+        // 将username和password被获得后封装到UsernamePasswordAuthenticationToken
         Authentication token = new UsernamePasswordAuthenticationToken(username, password, userDetails.getAuthorities());
-        //TODO，token被传递给AuthenticationManager进行验证
+        // token被传递给AuthenticationManager进行验证
         Authentication authentication = authenticationManager.authenticate(token);
         //将生成的authentication放入容器中，生成安全的上下文
-        log.info("验证成功.");
+        log.info("验证成功!");
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         //生成token
@@ -67,6 +67,7 @@ public class UserServiceImpl implements UserService {
 
         Map map = new HashMap();
         map.put("code", 200);
+        map.put("role",userDetails.getRole());
         map.put("token", realToken);
 
         return map;

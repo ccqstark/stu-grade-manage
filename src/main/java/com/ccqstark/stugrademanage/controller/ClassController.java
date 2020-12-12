@@ -1,11 +1,11 @@
 package com.ccqstark.stugrademanage.controller;
 
-
 import com.ccqstark.stugrademanage.mapper.ClassMapper;
 import com.ccqstark.stugrademanage.mapper.StudentMapper;
 import com.ccqstark.stugrademanage.pojo.Classes;
 import com.ccqstark.stugrademanage.pojo.Result;
 import com.ccqstark.stugrademanage.pojo.Student;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +19,7 @@ import java.util.Map;
  * @Description 班级Controller
  * @Date 2020/12/3 8:36
  **/
+@Slf4j
 @RestController
 @RequestMapping("/class")
 public class ClassController {

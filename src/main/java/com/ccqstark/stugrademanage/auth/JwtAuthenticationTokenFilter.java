@@ -47,8 +47,8 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
         // 当token中的username不为空时进行验证token是否是有效的token
         if (tokenUsername != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            //token中username不为空，并且Context中的认证为空，进行token验证
-            //TODO,从数据库得到带有密码的完整user信息
+            // token中username不为空，并且Context中的认证为空，进行token验证
+            // 从数据库得到带有密码的完整user信息
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(tokenUsername);
             log.info("加载userDetails:{}", userDetails.getUsername());
             if (jwtTokenUtil.validateToken(authToken, userDetails)) {
