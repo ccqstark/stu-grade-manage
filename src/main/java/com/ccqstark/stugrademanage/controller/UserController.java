@@ -67,7 +67,7 @@ public class UserController {
         return new Result(200, "发送成功");
     }
 
-    @PostMapping("ver_register")
+    @PostMapping("/ver_register")
     public Result verifyTheCode(@RequestBody NewUser user) {
 
         String vercode = user.getVercode();
