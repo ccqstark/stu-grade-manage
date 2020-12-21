@@ -1,5 +1,6 @@
 package com.ccqstark.stugrademanage.config;
 
+import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -23,6 +24,7 @@ import java.util.List;
  **/
 @Configuration
 @EnableSwagger2
+@EnableKnife4j
 public class SwaggerConfig {
     @Bean
     public Docket createRestApi() {
