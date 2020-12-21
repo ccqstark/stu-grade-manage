@@ -2,6 +2,8 @@
 
 ![](https://img.shields.io/github/repo-size/ccqstark/stu-grade-manage)     ![](https://img.shields.io/tokei/lines/github/ccqstark/stu-grade-manage?color=green)     ![](https://img.shields.io/github/commit-activity/m/ccqstark/stu-grade-manage?color=red)
 
+[项目地址](http://stu.gdufsclub.com/stu/Manager.html#)
+
 ### 技术栈
 
 **前端**：jQuery + bootstrap
