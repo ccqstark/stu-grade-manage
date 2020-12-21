@@ -1,6 +1,6 @@
 # 基于Spring Boot 的学生管理系统
 
-![](https://img.shields.io/github/repo-size/ccqstark/stu-grade-manage)![](https://img.shields.io/tokei/lines/github/ccqstark/stu-grade-manage?color=green)![](https://img.shields.io/github/commit-activity/m/ccqstark/stu-grade-manage?color=red)
+![](https://img.shields.io/github/repo-size/ccqstark/stu-grade-manage)     ![](https://img.shields.io/tokei/lines/github/ccqstark/stu-grade-manage?color=green)     ![](https://img.shields.io/github/commit-activity/m/ccqstark/stu-grade-manage?color=red)
 
 ### 技术栈
 
