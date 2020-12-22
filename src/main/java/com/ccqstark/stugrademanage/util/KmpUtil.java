@@ -43,7 +43,13 @@ public class KmpUtil {
     }
 
     public static void main(String[] args) {
-        System.out.println(kmpMatch("20191002914", "2914"));
+//        int[] next = getNext("aaaaa".toCharArray());
+//        for (int i = 0;i<next.length;i++) {
+//            System.out.println(next[i]);
+//        }
+
+        System.out.println(kmpMatch("aaaabaaaab", "aaaaa"));
+
     }
 
 }

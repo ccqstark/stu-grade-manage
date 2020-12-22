@@ -19,7 +19,7 @@
 | 数据访问层 | Druid + Mybatis          |
 | 缓存       | redis                    |
 | 日志       | SLF4j + log4j            |
-| 文档       | swagger2                 |
+| 文档       | swagger2 + knife4j       |
 | 单元测试   | junit                    |
 | excel      | easyExcel                |
 | 邮件       | spring-boot-starter-mail |
